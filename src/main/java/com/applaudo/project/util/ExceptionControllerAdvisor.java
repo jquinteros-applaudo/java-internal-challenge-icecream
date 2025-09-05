@@ -5,11 +5,11 @@ import com.applaudo.project.model.exceptions.IceCreamNotFoundException;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 /**
- * TODO create some exception handler
  * <p>
  * Example:
  * 
@@ -25,9 +25,19 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class ExceptionControllerAdvisor {
 
     @ExceptionHandler(IceCreamNotFoundException.class)
-    public ResponseEntity<APIError> handle(IceCreamNotFoundException ex) {
+    public ResponseEntity<APIError> handleIceCreamNotFound(IceCreamNotFoundException ex) {
         APIError error = APIError.builder()
                 .code(HttpStatus.NOT_FOUND.value())
+                .description(ex.getMessage())
+                .build();
+
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
+
+     @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<APIError> handleValidationError(MethodArgumentNotValidException ex) {
+        APIError error = APIError.builder()
+                .code(HttpStatus.BAD_REQUEST.value())
                 .description(ex.getMessage())
                 .build();
 

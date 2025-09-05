@@ -6,6 +6,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface IceCreamRepository extends JpaRepository<IceCreamEntity, Long> {
-
-    // TODO implement your queries
 }
