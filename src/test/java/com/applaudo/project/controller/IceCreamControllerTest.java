@@ -5,6 +5,8 @@ import com.applaudo.project.model.CombineIceCreamRequest;
 import com.applaudo.project.model.IceCreamDto;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +15,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit.jupiter.DisabledIf;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
@@ -171,9 +172,7 @@ class IceCreamControllerTest {
     }
 
     @Nested
-    @DisabledIf(value = "#{iceCreamController.getClass().getDeclaredMethods().length <= 2}",
-            loadContext = true,
-            reason = "Comment or remove if you implement the extra endpoints")
+    @Disabled        
     class ExtraTest {
 
         @Test

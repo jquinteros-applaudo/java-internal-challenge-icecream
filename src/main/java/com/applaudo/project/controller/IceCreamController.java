@@ -15,7 +15,6 @@ import com.applaudo.project.model.CombineIceCreamRequest;
 import com.applaudo.project.model.IceCreamDto;
 
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Min;
 
 @RequiredArgsConstructor
 @RestController
@@ -25,7 +24,7 @@ public class IceCreamController {
     private final IceCreamService iceCreamService;
 
     @GetMapping("/{id}")
-    public IceCreamDto getOneByIdOrFail(@PathVariable(name = "id") @Min(1) Long id) {
+    public IceCreamDto getOneByIdOrFail(@PathVariable(name = "id")  Long id) {
         return this.iceCreamService.getOneByIdOrFail(id);
     }
 

@@ -32,10 +32,12 @@ public class IceCreamCombinator {
             iceCreamName.append(" and ");
             iceCreamName.append(iceCreamDto.getName());
           }else {
-            iceCreamName.append(" , ");
+            iceCreamName.append(", ");
             iceCreamName.append(iceCreamDto.getName());
           }  
        } 
+
+       iceCreamName.append(" Ice Cream");
        return iceCreamName.toString();
         
     }

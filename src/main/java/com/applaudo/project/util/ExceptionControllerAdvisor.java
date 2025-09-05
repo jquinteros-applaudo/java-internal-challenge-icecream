@@ -41,6 +41,6 @@ public class ExceptionControllerAdvisor {
                 .description(ex.getMessage())
                 .build();
 
-        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 }
