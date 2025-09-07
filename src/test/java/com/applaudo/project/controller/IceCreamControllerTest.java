@@ -204,7 +204,6 @@ class IceCreamControllerTest {
         }
 
         @Test
-        @Disabled 
         void createIceCreamTest() throws Exception {
             String name = "Test";
             BigDecimal cost = new BigDecimal("15.00");
