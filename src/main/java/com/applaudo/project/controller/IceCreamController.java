@@ -2,6 +2,10 @@ package com.applaudo.project.controller;
 
 import lombok.RequiredArgsConstructor;
 
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.data.repository.query.Param;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +26,11 @@ import jakarta.validation.Valid;
 @RequestMapping("/api/ice-cream")
 public class IceCreamController {
     private final IceCreamService iceCreamService;
+
+    @GetMapping()
+    public List<IceCreamDto> getAll(@Param("searchName") Optional<String> searchName) {
+        return this.iceCreamService.getAllIceCreams(searchName);
+    }
 
     @GetMapping("/{id}")
     public IceCreamDto getOneByIdOrFail(@PathVariable(name = "id")  Long id) {

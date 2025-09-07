@@ -12,6 +12,7 @@ import com.applaudo.project.model.exceptions.IceCreamNotFoundException;
 
 import java.text.MessageFormat;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
@@ -29,6 +30,12 @@ public class IceCreamService {
         return iceCream;
     }
 
+    public List<IceCreamDto> getAllIceCreams(Optional<String> searchName) {
+        var iceCreams = searchName.isPresent() ? this.iceCreamRepository.findByNameContainingIgnoreCase(searchName.get()) : this.iceCreamRepository.findAll();
+
+        return iceCreams.stream().map(IceCreamEntity::toDto).collect(Collectors.toList());
+    }
+
     public IceCreamDto getOneByIdOrFail(Long iceCreamdId) {
         IceCreamEntity iceCream = this.getOneEntityByIdOrFail(iceCreamdId);
         return iceCream.toDto();
@@ -40,7 +47,7 @@ public class IceCreamService {
             .map(idDto -> idDto.getId())
             .collect(Collectors.toList());
 
-        List<IceCreamDto> iceCreamDtos = this.iceCreamRepository.findAllById(iceCreamIds)
+        List<IceCreamDto> iceCreamDtos = this.iceCreamRepository.findByIdInOrderByName(iceCreamIds)
             .stream()
             .map(IceCreamEntity::toDto)
             .collect(Collectors.toList());
