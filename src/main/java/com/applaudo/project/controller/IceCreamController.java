@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.applaudo.project.service.IceCreamService;
 import com.applaudo.project.model.CombineIceCreamRequest;
+import com.applaudo.project.model.CreateIceCreamDto;
 import com.applaudo.project.model.IceCreamDto;
 
 import jakarta.validation.Valid;
@@ -32,9 +33,16 @@ public class IceCreamController {
         return this.iceCreamService.getAllIceCreams(searchName);
     }
 
+
     @GetMapping("/{id}")
     public IceCreamDto getOneByIdOrFail(@PathVariable(name = "id")  Long id) {
         return this.iceCreamService.getOneByIdOrFail(id);
+    }
+
+
+    @PostMapping()
+    public IceCreamDto createIceCreams(@Valid @RequestBody CreateIceCreamDto createIceCreamDto) {
+        return this.iceCreamService.createIceCream(createIceCreamDto);
     }
 
     @PostMapping("/combine")

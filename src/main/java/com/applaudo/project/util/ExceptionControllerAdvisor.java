@@ -1,6 +1,7 @@
 package com.applaudo.project.util;
 
 import com.applaudo.project.model.APIError;
+import com.applaudo.project.model.exceptions.IceCreamDuplicatedException;
 import com.applaudo.project.model.exceptions.IceCreamNotFoundException;
 
 import org.springframework.http.HttpStatus;
@@ -32,6 +33,16 @@ public class ExceptionControllerAdvisor {
                 .build();
 
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
+
+     @ExceptionHandler(IceCreamDuplicatedException.class)
+    public ResponseEntity<APIError> handleIceCreamDuplicated(IceCreamDuplicatedException ex) {
+        APIError error = APIError.builder()
+                .code(HttpStatus.CONFLICT.value())
+                .description(ex.getMessage())
+                .build();
+
+        return new ResponseEntity<>(error, HttpStatus.CONFLICT);
     }
 
      @ExceptionHandler(MethodArgumentNotValidException.class)

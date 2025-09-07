@@ -12,5 +12,7 @@ public interface IceCreamRepository extends JpaRepository<IceCreamEntity, Long> 
 
     public List<IceCreamEntity> findByNameContainingIgnoreCase(String name);
 
+    public Boolean existsByName(String name);
+
     public List<IceCreamEntity> findByIdInOrderByName(Iterable<Long> ids);
 }

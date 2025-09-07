@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 
 import com.applaudo.project.model.CombineIceCreamRequest;
 import com.applaudo.project.model.IceCreamDto;
+import com.applaudo.project.model.exceptions.IceCreamDuplicatedException;
 import com.applaudo.project.model.exceptions.IceCreamNotFoundException;
 
 import java.text.MessageFormat;
@@ -42,6 +43,20 @@ public class IceCreamService {
     }
 
     
+    public IceCreamDto createIceCream(com.applaudo.project.model.CreateIceCreamDto createIceCreamDto) {
+        IceCreamEntity iceCreamEntity = createIceCreamDto.toIceCream();
+
+        var recordWithSameName = this.iceCreamRepository.existsByName(iceCreamEntity.getName());
+
+        if (recordWithSameName) {
+            String message = MessageFormat.format("IceCream with name {0} already exists", iceCreamEntity.getName());
+            throw new IceCreamDuplicatedException(message);
+        }
+
+        IceCreamEntity savedIceCream = this.iceCreamRepository.save(iceCreamEntity);
+        return savedIceCream.toDto();
+    }
+
     public IceCreamDto combineIceCreams(CombineIceCreamRequest combineIceCreamRequest) {
         List<Long> iceCreamIds = combineIceCreamRequest.getIceCreams().stream()
             .map(idDto -> idDto.getId())
