@@ -17,4 +17,13 @@ public class IceCreamDto {
     private Long id;
     private String name;
     private BigDecimal cost;
+
+    @Override
+    public String toString() {
+        return "IceCreamDto{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", cost=" + cost +
+                '}';
+    }
 }
